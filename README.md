@@ -2,6 +2,8 @@
 
 Laravel Nova custom field for [Spatie Opening Hours](https://github.com/spatie/opening-hours)
 
+![screenshot](screenshot.png)
+
 ## Installation
 
 You can install the package in to a Laravel app that uses [Nova](https://nova.laravel.com) via composer:
