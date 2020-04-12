@@ -1,6 +1,6 @@
 <?php
 
-namespace Sadekd\NovaOpeningHoursField;
+namespace SadekD\NovaOpeningHoursField;
 
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;

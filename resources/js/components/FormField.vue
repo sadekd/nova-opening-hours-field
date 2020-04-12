@@ -2,20 +2,23 @@
     <default-field :field="field" :errors="errors">
         <template slot="field">
             <table class="openingHours table w-full">
-                <tr v-for="(intervals, dayNameIndex) in openingHours">
-                    <td>{{ dayNameIndex }}</td>
-                    <td>
+                <tr v-for="(intervals, dayNameAsKey) in openingHours">
+                    <td>{{ __(dayNameAsKey) }}</td>
+                    <td v-if="intervals.length">
                         <div v-for="(interval, intervalIndex) in intervals" class="interval">
-                            <input class="form-control form-input form-input-bordered" v-model="openingHours[dayNameIndex][intervalIndex]">
-                            <!--<input class="form-control form-input form-input-bordered" type="time">-->
-                            <!-- - -->
-                            <!--<input class="form-control form-input form-input-bordered" type="time">-->
-                            <button class="btn btn-default btn-danger" @click.prevent="removeInterval(dayNameIndex, intervalIndex)">-
+                            <input class="form-control form-input form-input-bordered"
+                                   v-model="openingHours[dayNameAsKey][intervalIndex]"
+                                   pattern="^(2[0-3]|[01]?[0-9]):([0-5]?[0-9])-(2[0-3]|[01]?[0-9]):([0-5]?[0-9])$"
+                                   required
+                            >
+                            <button class="btn btn-default btn-danger"
+                                    @click.prevent="removeInterval(dayNameAsKey, intervalIndex)">-
                             </button>
                         </div>
                     </td>
+                    <td v-else>{{ __('Closed')}}</td>
                     <td>
-                        <button class="btn btn-default btn-primary" @click.prevent="addInterval(dayNameIndex)">+
+                        <button class="btn btn-default btn-primary" @click.prevent="addInterval(dayNameAsKey)">+
                         </button>
                     </td>
                 </tr>
@@ -26,67 +29,43 @@
 
 <script>
     import {FormField, HandlesValidationErrors} from 'laravel-nova'
-    import {WEEKDAYS} from "../const";
-    import * as _ from "lodash";
+    import {EMPTY_WEEK} from "../const";
 
     export default {
-        mixins: [FormField, HandlesValidationErrors],
 
-        data: () => ({
-            openingHours: [],
-            exceptions: [],
-            weekDays: WEEKDAYS
-        }),
+        mixins: [FormField, HandlesValidationErrors],
 
         props: ['resourceName', 'resourceId', 'field'],
 
+        data: () => ({
+            openingHours: {},
+            // exceptions: {},
+        }),
+
+        created() {
+            this.field.value = this.field.value || {}
+
+            this.openingHours = {...EMPTY_WEEK, ..._.omit(this.field.value, 'exceptions')}
+            // this.exceptions = this.field.value.exceptions || {}
+        },
+
         methods: {
-            /*
-             * Set the initial, internal value for the field.
-             */
-            setInitialValue() {
-                this.value = this.field.value || []
-
-                // console.log(this.field.value.(word => word.length > 6));
-
-                this.openingHours = _.omit(this.value, ['exceptions'])
-                this.exceptions = _.pick(this.value, ['exceptions'])
-
-                // console.log(this)
-            },
-
-            /**
-             * Fill the given FormData object with the field's internal value.
-             */
             fill(formData) {
-                // formData.append(this.field.attribute, this.value || [])
-                formData.append(
+                formData.set(
                     this.field.attribute,
                     JSON.stringify({
                         ...this.openingHours,
-                        exceptions: this.exceptions,
-                    }) || [])
-            },
-
-            /**
-             * Update the field's internal value.
-             */
-            handleChange(value) {
-                this.value = value
+                        // exceptions: this.exceptions,
+                    }))
             },
 
             addInterval(dayName) {
-                this.openingHours[dayName.toLowerCase()].push("08:00-16:00")
-                // this.handleChange(this.value)
+                this.openingHours[dayName].push("08:00-16:00")
             },
 
             removeInterval(dayName, index) {
-                this.openingHours[dayName.toLowerCase()].splice(index, 1)
+                this.openingHours[dayName].splice(index, 1)
             },
-
-            // changeInterval(dayName, index, value) {
-            //     this.openingHours[dayName.toLowerCase()][index] = value;
-            // }
         },
     }
 </script>

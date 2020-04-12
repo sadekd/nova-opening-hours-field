@@ -2,7 +2,9 @@
 
 Laravel Nova custom field for [Spatie Opening Hours](https://github.com/spatie/opening-hours)
 
-![screenshot](screenshot.png)
+![Screenshot Index](screenshot-index.png)
+
+![Screenshot Form](screenshot-form.png)
 
 ## Installation
 
@@ -13,6 +15,13 @@ composer require sadekd/nova-opening-hours-field
 ```
 
 ## Usage
+
+Laravel Migration
+
+```php
+$table->json('opening_hours');
+```
+
 
 Laravel Model
 
@@ -25,12 +34,7 @@ protected $casts = [
 Nova Resource
 
 ```php
-public function fields(Request $request)
-{
-    return [
-        ID::make(),
-        NovaOpeningHoursField::make('opening_hours'),
-        ...
+NovaOpeningHoursField::make('opening_hours'),
 ```
 
 ## TODO
