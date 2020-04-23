@@ -12,7 +12,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Sadekd\\NovaOpeningHoursField\\": "src/"
+            "SadekD\\NovaOpeningHoursField\\": "src/"
         }
     },
     "extra": {
