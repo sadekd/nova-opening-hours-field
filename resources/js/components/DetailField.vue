@@ -5,7 +5,7 @@
                 <tr v-for="(intervals, dayNameAsKey) in openingHours">
                     <td>{{ __(dayNameAsKey) }}</td>
                     <td v-if="intervals.length">{{ intervals.join(', ') }}</td>
-                    <td v-else>{{ __('Closed')}}</td>
+                    <td v-else>{{ __('closed')}}</td>
                 </tr>
             </table>
         </template>
