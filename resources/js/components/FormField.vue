@@ -16,7 +16,7 @@
                             </button>
                         </div>
                     </td>
-                    <td v-else>{{ __('Closed')}}</td>
+                    <td v-else>{{ __('closed')}}</td>
                     <td>
                         <button class="btn btn-default btn-primary" @click.prevent="addInterval(dayNameAsKey)">+
                         </button>
