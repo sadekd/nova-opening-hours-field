@@ -1,49 +1,20 @@
 <template>
     <div :class="`text-${field.textAlign}`">
-        <boolean-icon v-for="k in openingsForWeek" :key="k.name" :value="k.value" />
+        <boolean-icon v-for="(intervals, dayName) in openingHours" :key="dayName" :value="intervals.length"/>
     </div>
 </template>
 
 <script>
-    import {EMPTY_WEEK} from "../const";
+import {getOpeningHoursData} from "../func";
 
-    export default {
+export default {
 
-        props: ['resourceName', 'field'],
+    props: ['resourceName', 'field'],
 
-        data: () => ({
-            openingHours: {},
-        }),
-
-        created() {
-            this.field.value = this.field.value || {}
-
-            this.openingHours = {...EMPTY_WEEK, ..._.omit(this.field.value, 'exceptions')}
-        },
-        computed: {
-            openingsForWeek() {
-                return _.map(this.openingHours, (i, k) => {
-                    return {
-                        name: k,
-                        label: k,
-                        value: i.length > 0 || false,
-                    }
-                })
-
-                // return {
-                //     value: _.map(this.openingHours, (i, k) => {
-                //         return {
-                //             [k]: i.length > 0 || false,
-                //         }
-                //     }),
-                //     options: _.map(this.openingHours, (i, k) => {
-                //         return {
-                //             name: k,
-                //             label: k,
-                //         }
-                //     })
-                // };
-            },
-        },
-    }
+    data: function () {
+        return {
+            ...getOpeningHoursData(this.field.value)
+        }
+    },
+}
 </script>

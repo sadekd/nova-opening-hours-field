@@ -1,10 +1,10 @@
 {
-    "monday": "Pondelok",
-    "tuesday": "Utorok",
-    "wednesday": "Streda",
-    "thursday": "Štvrtok",
-    "friday": "Piatok",
-    "saturday": "Sobota",
-    "sunday": "Nedeľa",
-    "closed": "Zatvorené"
+    "Monday": "Pondelok",
+    "Tuesday": "Utorok",
+    "Wednesday": "Streda",
+    "Thursday": "Štvrtok",
+    "Friday": "Piatok",
+    "Saturday": "Sobota",
+    "Sunday": "Nedeľa",
+    "Closed": "Zatvorené"
 }
