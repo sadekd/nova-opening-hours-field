@@ -1,34 +1,24 @@
 <template>
     <panel-item :field="field">
         <template slot="value">
-            <table class="table w-full">
-                <tr v-for="(intervals, dayNameAsKey) in openingHours">
-                    <td>{{ __(dayNameAsKey) }}</td>
-                    <td v-if="intervals.length">{{ intervals.join(', ') }}</td>
-                    <td v-else>{{ __('closed')}}</td>
-                </tr>
-            </table>
+            <week-table :openingHours="openingHours" :editable="false"/>
         </template>
     </panel-item>
 </template>
 
 <script>
-    import {EMPTY_WEEK} from "../const";
+import WeekTable from "./WeekTable"
+import {getOpeningHoursData} from "../func";
 
-    export default {
+export default {
+    components: {WeekTable},
 
-        props: ['resource', 'resourceName', 'resourceId', 'field'],
+    props: ['resource', 'resourceName', 'resourceId', 'field'],
 
-        data: () => ({
-            openingHours: {},
-            // exceptions: {},
-        }),
-
-        created() {
-            this.field.value = this.field.value || {}
-
-            this.openingHours = {...EMPTY_WEEK, ..._.omit(this.field.value, 'exceptions')}
-            // this.exceptions = this.field.value.exceptions || {}
-        },
-    }
+    data: function () {
+        return {
+            ...getOpeningHoursData(this.field.value)
+        }
+    },
+}
 </script>
