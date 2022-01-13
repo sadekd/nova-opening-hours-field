@@ -29,7 +29,11 @@
 import {capitalizeFirstLetter} from "../func";
 
 export default {
-    props: ['openingHours', 'editable'],
+    props: ['openingHours', 'editable', 'randomIdentifier'],
+
+    created(){
+        console.log(this.openingHours)
+    },
 
     methods: {
         translateDayName(dayName) {

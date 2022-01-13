@@ -1,11 +1,16 @@
 import {EMPTY_WEEK, WEEK_DAYS} from "./const";
 
-export function getOpeningHoursData(openingHoursData) {
+export function getOpeningHoursData(openingHoursData, randomIdentifier) {
     return {
+        /*    openingHours: {
+                ...EMPTY_WEEK,
+                ..._.pick(openingHoursData, WEEK_DAYS),
+            },*/
         openingHours: {
             ...EMPTY_WEEK,
             ..._.pick(openingHoursData, WEEK_DAYS),
-        },
+            randomIdentifier
+        }
     }
 }
 

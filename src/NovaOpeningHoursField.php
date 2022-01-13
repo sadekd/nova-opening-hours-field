@@ -1,6 +1,6 @@
 <?php
 
-namespace SadekD\NovaOpeningHoursField;
+namespace Codana\NovaOpeningHoursField;
 
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -14,5 +14,9 @@ class NovaOpeningHoursField extends Field
         if ($request->exists($requestAttribute)) {
             $model->{$attribute} = json_decode($request[$requestAttribute], true);
         }
+    }
+
+    public function randomIdentifier(string $randomIdentifier){
+        return $this->withMeta(['randomIdentifier' => $randomIdentifier]);
     }
 }

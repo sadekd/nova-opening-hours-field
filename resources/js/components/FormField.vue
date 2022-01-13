@@ -1,7 +1,7 @@
 <template>
     <default-field :field="field" :errors="errors">
         <template slot="field">
-            <week-table :openingHours="openingHours" :editable="true"/>
+            <week-table :openingHours="openingHours" :editable="true" :randomIdentifier="field.randomIdentifier"/>
         </template>
     </default-field>
 </template>
@@ -18,9 +18,19 @@ export default {
 
     props: ['resourceName', 'resourceId', 'field'],
 
+    computed: {
+        filteredOpeningHours() {
+            return Object.entries(this.openingHours)
+        }
+    },
+
+    created() {
+        console.log(this.filteredOpeningHours)
+    },
+
     data: function () {
         return {
-            ...getOpeningHoursData(this.field.value)
+            ...getOpeningHoursData(this.field.value, this.field.randomIdentifier)
         }
     },
 

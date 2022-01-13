@@ -1,5 +1,5 @@
 {
-    "name": "sadekd/nova-opening-hours-field",
+    "name": "codana/nova-opening-hours-field",
     "description": "Laravel Nova custom field for Spatie Opening Hours",
     "keywords": [
         "laravel",
@@ -12,13 +12,13 @@
     },
     "autoload": {
         "psr-4": {
-            "SadekD\\NovaOpeningHoursField\\": "src/"
+            "Codana\\NovaOpeningHoursField\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "SadekD\\NovaOpeningHoursField\\FieldServiceProvider"
+                "Codana\\NovaOpeningHoursField\\FieldServiceProvider"
             ]
         }
     }
