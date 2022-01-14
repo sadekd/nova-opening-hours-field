@@ -1,6 +1,6 @@
 <?php
 
-namespace Codana\NovaOpeningHoursField;
+namespace SadekD\NovaOpeningHoursField;
 
 use Laravel\Nova\Nova;
 use Laravel\Nova\Events\ServingNova;
