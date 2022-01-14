@@ -15,8 +15,4 @@ class NovaOpeningHoursField extends Field
             $model->{$attribute} = json_decode($request[$requestAttribute], true);
         }
     }
-
-    public function randomIdentifier(string $randomIdentifier){
-        return $this->withMeta(['randomIdentifier' => $randomIdentifier]);
-    }
 }

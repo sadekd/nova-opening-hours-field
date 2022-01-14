@@ -1,7 +1,7 @@
 <template>
     <default-field :field="field" :errors="errors">
         <template slot="field">
-            <week-table :openingHours="openingHours" :editable="true" :randomIdentifier="field.randomIdentifier"/>
+            <week-table :openingHours="openingHours" :editable="true" @addInterval="addInterval"/>
         </template>
     </default-field>
 </template>
@@ -18,14 +18,8 @@ export default {
 
     props: ['resourceName', 'resourceId', 'field'],
 
-    computed: {
-        filteredOpeningHours() {
-            return Object.entries(this.openingHours)
-        }
-    },
-
     created() {
-        console.log(this.filteredOpeningHours)
+        getOpeningHoursData(this.field.value)
     },
 
     data: function () {
@@ -35,7 +29,7 @@ export default {
     },
 
     methods: {
-        fill(formData) {
+        fill(formData, id) {
             formData.set(
                 this.field.attribute,
                 JSON.stringify({
@@ -44,6 +38,12 @@ export default {
                 })
             )
         },
+
+        addInterval(dayName){
+            let openingHoursForDay = [...this.openingHours[dayName]] || []
+            openingHoursForDay.push("08:00-16:00")
+            this.openingHours[dayName] = openingHoursForDay
+        }
     },
 }
 </script>

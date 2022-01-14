@@ -184,15 +184,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
-function getOpeningHoursData(openingHoursData, randomIdentifier) {
+function getOpeningHoursData(openingHoursData) {
     return {
-        /*    openingHours: {
-                ...EMPTY_WEEK,
-                ..._.pick(openingHoursData, WEEK_DAYS),
-            },*/
-        openingHours: _extends({}, __WEBPACK_IMPORTED_MODULE_0__const__["a" /* EMPTY_WEEK */], _.pick(openingHoursData, __WEBPACK_IMPORTED_MODULE_0__const__["b" /* WEEK_DAYS */]), {
-            randomIdentifier: randomIdentifier
-        })
+        openingHours: _extends({}, __WEBPACK_IMPORTED_MODULE_0__const__["a" /* EMPTY_WEEK */], _.pick(openingHoursData, __WEBPACK_IMPORTED_MODULE_0__const__["b" /* WEEK_DAYS */]))
     };
 }
 
@@ -508,20 +502,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['openingHours', 'editable', 'randomIdentifier'],
 
-    created: function created() {
-        console.log(this.openingHours);
-    },
-
-
     methods: {
         translateDayName: function translateDayName(dayName) {
             return this.__(Object(__WEBPACK_IMPORTED_MODULE_0__func__["a" /* capitalizeFirstLetter */])(dayName));
         },
         addInterval: function addInterval(dayName) {
-            var openingHoursForDay = this.openingHours[dayName] || [];
-            openingHoursForDay.push("08:00-16:00");
-
-            this.openingHours[dayName] = openingHoursForDay;
+            this.$emit('addInterval', dayName);
         },
         removeInterval: function removeInterval(dayName, index) {
             this.openingHours[dayName].splice(index, 1);
@@ -739,6 +725,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__func__ = __webpack_require__(1);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 //
 //
 //
@@ -759,14 +747,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
     props: ['resourceName', 'resourceId', 'field'],
 
-    computed: {
-        filteredOpeningHours: function filteredOpeningHours() {
-            return Object.entries(this.openingHours);
-        }
-    },
-
     created: function created() {
-        console.log(this.filteredOpeningHours);
+        Object(__WEBPACK_IMPORTED_MODULE_2__func__["b" /* getOpeningHoursData */])(this.field.value);
     },
 
 
@@ -775,10 +757,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     },
 
     methods: {
-        fill: function fill(formData) {
+        fill: function fill(formData, id) {
             formData.set(this.field.attribute, JSON.stringify(_extends({}, this.openingHours)
             // exceptions: this.exceptions,
             ));
+        },
+        addInterval: function addInterval(dayName) {
+            var openingHoursForDay = [].concat(_toConsumableArray(this.openingHours[dayName])) || [];
+            openingHoursForDay.push("08:00-16:00");
+            this.openingHours[dayName] = openingHoursForDay;
         }
     }
 });
@@ -27134,11 +27121,8 @@ var render = function() {
         { slot: "field" },
         [
           _c("week-table", {
-            attrs: {
-              openingHours: _vm.openingHours,
-              editable: true,
-              randomIdentifier: _vm.field.randomIdentifier
-            }
+            attrs: { openingHours: _vm.openingHours, editable: true },
+            on: { addInterval: _vm.addInterval }
           })
         ],
         1

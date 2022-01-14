@@ -31,20 +31,13 @@ import {capitalizeFirstLetter} from "../func";
 export default {
     props: ['openingHours', 'editable', 'randomIdentifier'],
 
-    created(){
-        console.log(this.openingHours)
-    },
-
     methods: {
         translateDayName(dayName) {
             return this.__(capitalizeFirstLetter(dayName))
         },
 
         addInterval(dayName) {
-            let openingHoursForDay = this.openingHours[dayName] || []
-            openingHoursForDay.push("08:00-16:00")
-
-            this.openingHours[dayName] = openingHoursForDay
+            this.$emit('addInterval', dayName);
         },
 
         removeInterval(dayName, index) {
