@@ -32,9 +32,9 @@ composer require sadekd/nova-opening-hours-field
 Laravel Migration
 
 ```php
-$table->json('opening_hours')->nullable();
+$table->json('opening_hours');
+// can be ->nullable()
 ```
-
 
 Laravel Model
 
@@ -48,11 +48,13 @@ Nova Resource
 
 ```php
 NovaOpeningHoursField::make(__('Opening Hours'), 'opening_hours'),
+// ->allowExceptions(FALSE)    // TRUE by default
+// ->allowOverflowMidnight(TRUE)  // FALSE by default
 ```
 
 ## TODO
 
-- [ ] Explode interval input => time fields
+- [x] Explode interval input => time fields
 - [ ] Validation
 - [x] Localization
 - [x] Exceptions
