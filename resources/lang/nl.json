@@ -6,5 +6,7 @@
     "Friday": "Vrijdag",
     "Saturday": "Zaterdag",
     "Sunday": "Zondag",
-    "Closed": "Gesloten"
+    "Closed": "Gesloten",
+    "Week": "Week",
+    "Exceptions": "Uitzonderingen"
 }

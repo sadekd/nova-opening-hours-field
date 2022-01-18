@@ -1,19 +1,18 @@
 <template>
     <div :class="`text-${field.textAlign}`">
-        <boolean-icon v-for="(intervals, dayName) in openingHours" :key="dayName" :value="intervals.length"/>
+        <boolean-icon v-for="(intervals, day) in week" :key="day" :value="Object.values(intervals).length"/>
     </div>
 </template>
 
 <script>
-import {getOpeningHoursData} from "../func";
+import {getWeekData} from "../func";
 
 export default {
-
     props: ['resourceName', 'field'],
 
     data: function () {
         return {
-            ...getOpeningHoursData(this.field.value)
+            week: getWeekData(this.field.value),
         }
     },
 }

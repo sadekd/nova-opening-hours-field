@@ -6,5 +6,7 @@
     "Friday": "Venerdì",
     "Saturday": "Sabato",
     "Sunday": "Domenica",
-    "Closed": "Chiuso"
+    "Closed": "Chiuso",
+    "Week": "Settimana",
+    "Exceptions": "Eccezioni"
 }
