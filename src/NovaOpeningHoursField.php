@@ -21,6 +21,7 @@ class NovaOpeningHoursField extends Field
 
         $this->allowExceptions(TRUE);
         $this->allowOverflowMidnight(FALSE);
+        $this->useTextInputs(FALSE);
 //        $this->allowMergeOverlapping(TRUE);
     }
 
@@ -47,15 +48,20 @@ class NovaOpeningHoursField extends Field
         }
     }
 
-    public function allowExceptions(bool $allowExceptions)
+    public function allowExceptions(bool $value)
     {
-        return $this->withMeta(['allowExceptions' => $allowExceptions]);
+        return $this->withMeta(['allowExceptions' => $value]);
     }
 
-    public function allowOverflowMidnight(bool $allowOverflowMidnight)
+    public function allowOverflowMidnight(bool $value)
     {
-        $this->allowOverflowMidnight = $allowOverflowMidnight;
-        return $this->withMeta(['allowOverflowMidnight' => $this->allowOverflowMidnight]);
+        $this->allowOverflowMidnight = $value;
+        return $this->withMeta(['allowOverflowMidnight' => $value]);
+    }
+
+    public function useTextInputs(bool $value)
+    {
+        return $this->withMeta(['useTextInputs' => $value]);
     }
 
 //    public function allowMergeOverlapping(bool $allowMergeOverlapping)

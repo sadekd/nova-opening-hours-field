@@ -8,12 +8,4 @@ export const EMPTY_WEEK = {
     sunday: [],
 }
 
-export const weekProp = {
-    type: Object,
-    default: EMPTY_WEEK,
-}
-
-export const editableProp = {
-    type: Boolean,
-    default: false,
-}
+// export const NONSTOP = '00:00-24:00'

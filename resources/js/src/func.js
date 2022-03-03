@@ -1,12 +1,5 @@
 import {EMPTY_WEEK} from "./const";
 
-export function getFieldData(openingHoursData) {
-    return {
-        week: getWeekData(openingHoursData),
-        exceptions: getExceptionsData(openingHoursData),
-    }
-}
-
 export function getWeekData(openingHoursData) {
     return {
         ...EMPTY_WEEK,
@@ -14,7 +7,7 @@ export function getWeekData(openingHoursData) {
     }
 }
 
-function getExceptionsData(openingHoursData) {
+export function getExceptionsData(openingHoursData) {
     return openingHoursData && openingHoursData['exceptions']
         ? Object.keys(openingHoursData['exceptions']).length ? openingHoursData['exceptions'] : {}
         : {}
@@ -46,4 +39,8 @@ export function getRandomTimeInterval() {
     let padZeroFn = _hour => _hour.toString().padStart(2, '0')  // prepend 0, if needed
 
     return padZeroFn(fromHour) + ':00-' + padZeroFn(toHour) + ':00'
+}
+
+export function randomString() {
+    return Math.random().toString(36).substr(2, 5)
 }

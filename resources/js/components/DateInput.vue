@@ -1,19 +1,24 @@
 <template>
     <input
-        type="date"
+        :type="useTextInputs ? 'text' : 'date'"
         class="form-control form-input form-input-bordered"
         v-model="date"
         :min="getMinDate()"
+        minlength="7"
+        maxlength="10"
         required
     />
 </template>
 
 <script>
-import {getTodayDate} from "../../func";
+import {getTodayDate} from "../src/func";
+import {useTextInputsProp} from "../src/props";
 
 export default {
-
-    props: ['dateProp'],
+    props:  {
+        dateProp: String,
+        ...useTextInputsProp,
+    },
 
     emits: ['updateDate'],
 
@@ -36,3 +41,13 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+input[type="text"] {
+    width: 125px;
+}
+
+input[type="date"] {
+    width: 175px;
+}
+</style>

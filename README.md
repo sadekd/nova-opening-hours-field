@@ -50,6 +50,7 @@ Nova Resource
 NovaOpeningHoursField::make(__('Opening Hours'), 'opening_hours'),
 // ->allowExceptions(FALSE)    // TRUE by default
 // ->allowOverflowMidnight(TRUE)  // FALSE by default
+// ->useTextInputs(TRUE)  // FALSE by default
 ```
 
 ## TODO

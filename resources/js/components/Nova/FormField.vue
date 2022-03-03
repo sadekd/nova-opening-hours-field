@@ -1,18 +1,22 @@
 <template>
     <default-field :field="field" :errors="errors">
         <template slot="field">
+<!--            <week-table :week="normalizedWeek"/>-->
             <week-table
-                :week="week"
+                :week="normalizedWeek"
                 :editable="true"
+                :use-text-inputs="field.useTextInputs"
                 @updateInterval="updateInterval"
                 @addInterval="addInterval"
                 @removeInterval="removeInterval"
                 @removeAllIntervals="removeAllIntervals"
             />
+<!--            <exceptions-table :exceptions="normalizedExceptions"/>-->
             <exceptions-table
                 v-if="field.allowExceptions"
-                :exceptions="exceptions"
+                :exceptions="normalizedExceptions"
                 :editable="true"
+                :use-text-inputs="field.useTextInputs"
                 @updateInterval="updateInterval"
                 @addInterval="addInterval"
                 @removeInterval="removeInterval"
@@ -26,22 +30,16 @@
 
 <script>
 import {FormField, HandlesValidationErrors} from 'laravel-nova'
-import WeekTable from "./OpeningHours/WeekTable";
-import ExceptionsTable from "./OpeningHours/ExceptionsTable";
-import {getFieldData, getRandomDate, getRandomTimeInterval} from "../func";
-
+import WeekTable from "./../WeekTable";
+import ExceptionsTable from "./../ExceptionsTable";
+import {ExceptionsMixin, WeekMixin} from "../../src/mixins";
+import {getRandomDate, getRandomTimeInterval} from "../../src/func";
 export default {
     components: {WeekTable, ExceptionsTable},
 
-    mixins: [FormField, HandlesValidationErrors],
+    mixins: [FormField, HandlesValidationErrors, WeekMixin, ExceptionsMixin],
 
     props: ['resourceName', 'resourceId', 'field'],
-
-    data: function () {
-        return {
-            ...getFieldData(this.field.value),
-        }
-    },
 
     methods: {
         fill(formData) {
@@ -55,12 +53,12 @@ export default {
         },
 
         updateInterval(weekOrExceptions, dayOrDate, index, value) {
-            this[weekOrExceptions][dayOrDate][index] = value
-            // this.$set(this[weekOrExceptions][dayOrDate], index, value)
+            this.$set(this[weekOrExceptions][dayOrDate], index, value)
         },
 
         removeInterval(weekOrExceptions, dayOrDate, index) {
             this[weekOrExceptions][dayOrDate].splice(index, 1)
+            this.$forceUpdate()
         },
 
         addInterval(weekOrExceptions, dayOrDate) {
@@ -82,7 +80,8 @@ export default {
         renameException(oldDate, newDate) {
             let exception = this.exceptions[oldDate]
 
-            this.$delete(this.exceptions, oldDate)
+            // this.$delete(this.exceptions, oldDate)
+            delete this.exceptions[oldDate]
             this.$set(this.exceptions, newDate, exception)
         },
     },

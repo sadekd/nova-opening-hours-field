@@ -1,32 +1,42 @@
 <template>
     <div class="interval">
         <input
-            type="time"
-            class="form-control form-input form-input-bordered"
-            v-model="from"
-            required
+               :type="useTextInputs ? 'text' : 'time'"
+               class="form-control form-input form-input-bordered"
+               v-model.lazy="from"
+               minlength="5"
+               maxlength="5"
+               required
         >
         -
         <input
-            type="time"
-            class="form-control form-input form-input-bordered"
-            v-model="to"
-            required
+               :type="useTextInputs ? 'text' : 'time'"
+               class="form-control form-input form-input-bordered"
+               v-model.lazy="to"
+               minlength="5"
+               maxlength="5"
+               required
         >
         <button class="btn btn-default btn-danger" @click.prevent="$emit('removeInterval')">-</button>
     </div>
 </template>
 
 <script>
+import {useTextInputsProp} from "../src/props";
+
 export default {
 
-    props: ['intervalProp'],
+    props:  {
+        intervalProp: String,
+        ...useTextInputsProp,
+    },
 
     emits: ['updateInterval', 'removeInterval'],
 
     data: function () {
         return {
             interval: this.intervalProp,
+            error: false,
         }
     },
 
@@ -52,6 +62,7 @@ export default {
 
     watch: {
         interval(value) {
+            // if (value.length !== 11 || value === this.interval) return
             this.$emit('updateInterval', value)
         },
     },
@@ -61,5 +72,9 @@ export default {
 <style scoped>
 .interval {
     margin: 10px 0;
+}
+
+input[type="text"] {
+    width: 75px;
 }
 </style>
