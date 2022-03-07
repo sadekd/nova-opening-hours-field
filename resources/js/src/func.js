@@ -32,13 +32,22 @@ export function getRandomDate() {
     return sliceDate(date)
 }
 
+// function getRandomTime() {
+//     let hour = Math.floor(Math.random() * 24)
+//     let min = 0
+//
+//     return padStartZero(hour) + ':' + padStartZero(min)
+// }
+
+function padStartZero(value) {
+    return value.toString().padStart(2, '0')
+}
+
 export function getRandomTimeInterval() {
     let fromHour = Math.floor(Math.random() * 24)   // 0-23
     let toHour = fromHour + Math.floor(Math.random() * (24 - fromHour))
 
-    let padZeroFn = _hour => _hour.toString().padStart(2, '0')  // prepend 0, if needed
-
-    return padZeroFn(fromHour) + ':00-' + padZeroFn(toHour) + ':00'
+    return padStartZero(fromHour) + ':00-' + padStartZero(toHour) + ':00'
 }
 
 export function randomString() {

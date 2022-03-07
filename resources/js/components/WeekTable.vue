@@ -41,6 +41,7 @@ export default {
         ...weekProp,
         ...editableProp,
         ...useTextInputsProp,
+        // ...identifierProp,
     },
 
     emits: ['updateInterval', 'removeInterval', 'addInterval', 'removeAllIntervals'],

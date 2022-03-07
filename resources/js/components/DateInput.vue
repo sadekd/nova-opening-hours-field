@@ -2,6 +2,7 @@
     <input
         :type="useTextInputs ? 'text' : 'date'"
         class="form-control form-input form-input-bordered"
+        :class="{ 'border-danger': !isValid }"
         v-model="date"
         :min="getMinDate()"
         minlength="7"
@@ -25,6 +26,14 @@ export default {
     data: function () {
         return {
             date: this.dateProp,
+        }
+    },
+
+    computed: {
+        isValid: function () {
+            const re = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
+            // console.log(this.date, re.test(this.date))
+            return re.test(this.date);
         }
     },
 

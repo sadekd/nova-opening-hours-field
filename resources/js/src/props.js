@@ -13,6 +13,10 @@ export const exceptionsProp = {
     },
 }
 
+// export const identifierProp = {
+//     identifier: String,
+// }
+
 export const editableProp = {
     editable: {
         type: Boolean,
