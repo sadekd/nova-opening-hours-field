@@ -29,7 +29,7 @@ export default {
 
     computed: {
         isValid: function () {
-            const re = /([0-1]{1}[0-9]{1}|[20-24]):[0-5]{1}[0-9]{1}/;
+            const re = /([0-1]{1}[0-9]{1}|[20-23]):[0-5]{1}[0-9]{1}/;
             // console.log(this.time, re.test(this.time))
             return re.test(this.time);
         }
