@@ -32,8 +32,7 @@ composer require sadekd/nova-opening-hours-field
 Laravel Migration
 
 ```php
-$table->json('opening_hours');
-// can be ->nullable()
+$table->json('opening_hours');  // can be ->nullable()
 ```
 
 Laravel Model
@@ -53,10 +52,17 @@ NovaOpeningHoursField::make(__('Opening Hours'), 'opening_hours'),
 // ->useTextInputs(TRUE)  // FALSE by default
 ```
 
+## Known issues
+
+- Lazy validation on time field - losing focus when live(help needed)
+- Editing date in exceptions causes row jumping - key from date(help needed)
+- Browser time input does not support 24:00
+- Browser date input does not support recurring format
+
 ## TODO
 
 - [x] Explode interval input => time fields
-- [ ] Validation
+- [x] Validation
 - [x] Localization
 - [x] Exceptions
 - [ ] Tests
