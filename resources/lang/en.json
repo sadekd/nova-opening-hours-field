@@ -6,5 +6,7 @@
     "Friday": "Friday",
     "Saturday": "Saturday",
     "Sunday": "Sunday",
-    "Closed": "Closed"
+    "Closed": "Closed",
+    "Week": "Week",
+    "Exceptions": "Exceptions"
 }

@@ -1,51 +1,53 @@
 <template>
     <table class="openingHours weekTable table w-full">
-        <tr v-for="(intervals, dayName) in openingHours">
-            <td>{{ translateDayName(dayName) }}</td>
+        <tr>
+            <th class="text-left font-bold" :colspan="editable ? 3 : 2">{{ __('Week') }}</th>
+        </tr>
+        <tr v-for="day in week" :key="day.day">
+            <td>{{ __(capitalizeFirstLetter(day.day)) }}</td>
             <td>
-                <div v-if="openingHours[dayName].length">
-                    <div v-for="(interval, intervalIndex) in intervals" class="interval">
+                <div v-if="Object.values(day.intervals).length">
+                    <div v-for="(interval, index) in day.intervals" :key="interval.key">
                         <div v-if="editable">
-                            <input class="form-control form-input form-input-bordered"
-                                   v-model="openingHours[dayName][intervalIndex]"
-                                   pattern="^(2[0-3]|[01]?[0-9]):([0-5]?[0-9])-(2[0-3]|[01]?[0-9]):([0-5]?[0-9])$"
-                                   required
-                            >
-                            <button class="btn btn-default btn-danger" @click.prevent="removeInterval(dayName, intervalIndex)">-</button>
+                            <interval-input
+                                :interval-prop="interval.interval"
+                                :use-text-inputs="useTextInputs"
+                                @updateInterval="$emit('updateInterval', 'week', day.day, index, $event)"
+                                @removeInterval="$emit('removeInterval', 'week', day.day, index)"
+                            />
                         </div>
-                        <div v-else>{{ interval }}</div>
+                        <div v-else>{{ interval.interval }}</div>
                     </div>
                 </div>
                 <div v-else>{{ __('Closed') }}</div>
             </td>
             <td v-if="editable">
-                <button class="btn btn-default btn-primary" @click.prevent="addInterval(dayName)">+</button>
+                <button class="btn btn-default btn-primary" @click.prevent="$emit('addInterval', 'week', day.day)">+</button>
+                <button class="btn btn-default btn-danger" v-if="Object.values(day.intervals).length" @click.prevent="$emit('removeAllIntervals', 'week', day.day)">-</button>
             </td>
         </tr>
     </table>
 </template>
 
 <script>
-import {capitalizeFirstLetter} from "../func";
+import IntervalInput from "./IntervalInput";
+import {editableProp, useTextInputsProp, weekProp} from "../src/props";
+import {capitalizeFirstLetter} from "../src/func";
 
 export default {
-    props: ['openingHours', 'editable'],
+    components: { IntervalInput },
+
+    props: {
+        ...weekProp,
+        ...editableProp,
+        ...useTextInputsProp,
+        // ...identifierProp,
+    },
+
+    emits: ['updateInterval', 'removeInterval', 'addInterval', 'removeAllIntervals'],
 
     methods: {
-        translateDayName(dayName) {
-            return this.__(capitalizeFirstLetter(dayName))
-        },
-
-        addInterval(dayName) {
-            let openingHoursForDay = this.openingHours[dayName] || []
-            openingHoursForDay.push("08:00-16:00")
-
-            this.openingHours[dayName] = openingHoursForDay
-        },
-
-        removeInterval(dayName, index) {
-            this.openingHours[dayName].splice(index, 1)
-        },
-    }
+        capitalizeFirstLetter,
+    },
 }
 </script>

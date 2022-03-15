@@ -6,5 +6,7 @@
     "Friday": "Piatok",
     "Saturday": "Sobota",
     "Sunday": "Nedeľa",
-    "Closed": "Zatvorené"
+    "Closed": "Zatvorené",
+    "Week": "Týždeň",
+    "Exceptions": "Výnimky"
 }
