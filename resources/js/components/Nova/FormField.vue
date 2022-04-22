@@ -1,11 +1,11 @@
 <template>
-    <default-field :field="field" :errors="errors">
-        <template slot="field">
+    <default-field :field="currentField" :errors="errors">
+        <template #field>
 <!--            <week-table :week="normalizedWeek"/>-->
             <week-table
                 :week="normalizedWeek"
                 :editable="true"
-                :use-text-inputs="field.useTextInputs"
+                :use-text-inputs="currentField.useTextInputs"
                 @updateInterval="updateInterval"
                 @addInterval="addInterval"
                 @removeInterval="removeInterval"
@@ -13,10 +13,10 @@
             />
 <!--            <exceptions-table :exceptions="normalizedExceptions"/>-->
             <exceptions-table
-                v-if="field.allowExceptions"
+                v-if="currentField.allowExceptions"
                 :exceptions="normalizedExceptions"
                 :editable="true"
-                :use-text-inputs="field.useTextInputs"
+                :use-text-inputs="currentField.useTextInputs"
                 @updateInterval="updateInterval"
                 @addInterval="addInterval"
                 @removeInterval="removeInterval"
@@ -29,7 +29,8 @@
 </template>
 
 <script>
-import {FormField, HandlesValidationErrors} from 'laravel-nova'
+import DependentFormField from 'laravel-nova-dependent-form-field';
+import HandlesValidationErrors from 'laravel-nova-handles-validation-errors';
 import WeekTable from "./../WeekTable";
 import ExceptionsTable from "./../ExceptionsTable";
 import {ExceptionsMixin, WeekMixin} from "../../src/mixins";
@@ -37,9 +38,7 @@ import {getRandomDate, getRandomTimeInterval} from "../../src/func";
 export default {
     components: {WeekTable, ExceptionsTable},
 
-    mixins: [FormField, HandlesValidationErrors, WeekMixin, ExceptionsMixin],
-
-    props: ['resourceName', 'resourceId', 'field'],
+    mixins: [DependentFormField, HandlesValidationErrors, WeekMixin, ExceptionsMixin],
 
     methods: {
         fill(formData) {
@@ -53,7 +52,7 @@ export default {
         },
 
         updateInterval(weekOrExceptions, dayOrDate, index, value) {
-            this.$set(this[weekOrExceptions][dayOrDate], index, value)
+            this[weekOrExceptions][dayOrDate][index] = value;
         },
 
         removeInterval(weekOrExceptions, dayOrDate, index) {
@@ -62,7 +61,13 @@ export default {
         },
 
         addInterval(weekOrExceptions, dayOrDate) {
-            this[weekOrExceptions][dayOrDate].push(getRandomTimeInterval())
+            this[weekOrExceptions] = {
+                ...this[weekOrExceptions],
+                [dayOrDate]: [
+                    ...this[weekOrExceptions][dayOrDate] || [],
+                    getRandomTimeInterval()
+                ],
+            };
         },
 
         removeAllIntervals(weekOrExceptions, dayOrDate) {
@@ -70,11 +75,11 @@ export default {
         },
 
         addException() {
-            this.$set(this.exceptions, getRandomDate(), [getRandomTimeInterval()])
+            this.exceptions[getRandomDate()] = [getRandomTimeInterval()];
         },
 
         removeException(date) {
-            this.$delete(this.exceptions, date)
+            delete this.exceptions[date];
         },
 
         renameException(oldDate, newDate) {
@@ -82,7 +87,7 @@ export default {
 
             // this.$delete(this.exceptions, oldDate)
             delete this.exceptions[oldDate]
-            this.$set(this.exceptions, newDate, exception)
+            this.exceptions[newDate] = exception;
         },
     },
 

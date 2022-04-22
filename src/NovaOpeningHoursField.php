@@ -4,12 +4,15 @@ namespace SadekD\NovaOpeningHoursField;
 
 use Illuminate\Validation\ValidationException;
 use Laravel\Nova\Fields\Field;
+use Laravel\Nova\Fields\SupportsDependentFields;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Spatie\OpeningHours\Exceptions\Exception as OpeningHoursException;
 use Spatie\OpeningHours\OpeningHours;
 
 class NovaOpeningHoursField extends Field
 {
+    use SupportsDependentFields;
+
     public $component = 'nova-opening-hours-field';
 
     private $allowOverflowMidnight;

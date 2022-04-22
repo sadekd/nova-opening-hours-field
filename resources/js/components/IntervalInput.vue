@@ -11,7 +11,9 @@
             :use-text-inputs="useTextInputs"
             @updateTime="to = $event"
         />
-        <button class="btn btn-default btn-danger" @click.prevent="$emit('removeInterval')">-</button>
+        <span class="ml-2">
+            <danger-button @click.prevent="$emit('removeInterval')"><span class="px-1">-</span></danger-button>
+        </span>
     </div>
 </template>
 
