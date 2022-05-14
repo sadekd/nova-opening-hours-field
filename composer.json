@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2|^8.0",
+        "laravel/nova": "^4.0",
         "spatie/opening-hours": "^2.0"
     },
     "autoload": {
@@ -22,5 +23,11 @@
                 "SadekD\\NovaOpeningHoursField\\FieldServiceProvider"
             ]
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://nova.laravel.com"
+        }
+    ]
 }

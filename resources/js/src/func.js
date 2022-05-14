@@ -1,9 +1,10 @@
 import {EMPTY_WEEK} from "./const";
+import pick from 'lodash/pick';
 
 export function getWeekData(openingHoursData) {
     return {
         ...EMPTY_WEEK,
-        ..._.pick(openingHoursData, Object.keys(EMPTY_WEEK)),
+        ...pick(openingHoursData, Object.keys(EMPTY_WEEK)),
     }
 }
 

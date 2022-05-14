@@ -1,6 +1,6 @@
 <template>
     <panel-item :field="field">
-        <template slot="value">
+        <template #value>
             <week-table :week="normalizedWeek"/>
             <exceptions-table v-if="showExceptionsTable" :exceptions="normalizedExceptions"/>
         </template>
