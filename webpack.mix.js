@@ -8,13 +8,9 @@ mix.setPublicPath('dist')
     .webpackConfig({
         externals: {
             vue: 'Vue',
+            'laravel-nova': 'LaravelNova'
         },
         output: {
             uniqueName: 'sadekd/nova-opening-hours-field',
         },
-    })
-
-    .alias({
-        'laravel-nova-dependent-form-field': path.join(__dirname, 'vendor/laravel/nova/resources/js/mixins/DependentFormField.js'),
-        'laravel-nova-handles-validation-errors': path.join(__dirname, 'vendor/laravel/nova/resources/js/mixins/HandlesValidationErrors.js'),
     })

@@ -29,8 +29,7 @@
 </template>
 
 <script>
-import DependentFormField from 'laravel-nova-dependent-form-field';
-import HandlesValidationErrors from 'laravel-nova-handles-validation-errors';
+import { DependentFormField, HandlesValidationErrors } from 'laravel-nova';
 import WeekTable from "./../WeekTable";
 import ExceptionsTable from "./../ExceptionsTable";
 import {ExceptionsMixin, WeekMixin} from "../../src/mixins";
