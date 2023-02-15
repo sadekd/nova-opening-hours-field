@@ -3,13 +3,15 @@
         <time-input
             :time-prop="from"
             :use-text-inputs="useTextInputs"
-            @updateTime="from = $event"
+            @blur="this.interval = [this.from, this.to].join('-');"
+            v-model="from"
         />
         -
         <time-input
             :time-prop="to"
             :use-text-inputs="useTextInputs"
-            @updateTime="to = $event"
+            @blur="this.interval = [this.from, this.to].join('-');"
+            v-model="to"
         />
         <span class="ml-2">
             <danger-button @click.prevent="$emit('removeInterval')"><span class="px-1">-</span></danger-button>
@@ -34,28 +36,11 @@ export default {
     data: function () {
         return {
             interval: this.intervalProp,
+            from: this.intervalProp.split('-')[0],
+            to: this.intervalProp.split('-')[1]
         }
     },
 
-    computed: {
-        from: {
-            get() {
-                return this.interval.split('-')[0]
-            },
-            set(value) {
-                this.interval = [value, this.to].join('-')
-            },
-        },
-
-        to: {
-            get() {
-                return this.interval.split('-')[1]
-            },
-            set(value) {
-                this.interval = [this.from, value].join('-')
-            },
-        },
-    },
 
     watch: {
         interval(value) {
