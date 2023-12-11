@@ -12,6 +12,7 @@
         "@vue/babel-plugin-jsx": "^1.1.1",
         "form-backend-validation": "^2.4.0",
         "laravel-mix": "^6.0.43",
+        "laravel-nova-ui": "^0.4.10",
         "lodash": "^4.17.21",
         "postcss": "^8.4.12",
         "resolve-url-loader": "^4.0.0",
