@@ -39,7 +39,8 @@
                     <div v-else>{{ __('Closed') }}</div>
                 </table-column>
                 <table-column v-if="editable" class="text-right">
-                    <add-button @click.prevent="$emit('addInterval', 'exceptions', exception.date)" />                    &nbsp;
+                    <add-button @click.prevent="$emit('addInterval', 'exceptions', exception.date)" />
+                    &nbsp;
                     <remove-button @click.prevent="$emit('removeException', exception.date)"/>
                 </table-column>
             </tr>
