@@ -34,9 +34,9 @@
                     </div>
                 </table-column>
                 <table-column v-if="editable" class="text-right">
-                    <default-button @click.prevent="$emit('addInterval', 'week', day.day)"><span class="px-1">+</span></default-button>
+                    <add-button @click.prevent="$emit('addInterval', 'week', day.day)" />
                     <span v-if="Object.values(day.intervals).length" class="ml-2">
-                        <danger-button @click.prevent="$emit('removeAllIntervals', 'week', day.day)"><span class="px-1">-</span></danger-button>
+                        <remove-button @click.prevent="$emit('removeAllIntervals', 'week', day.day)" />
                     </span>
                 </table-column>
             </tr>
@@ -45,6 +45,8 @@
 </template>
 
 <script>
+import AddButton from './AddButton';
+import RemoveButton from './RemoveButton';
 import IntervalInput from "./IntervalInput";
 import TableColumn from "./TableColumn";
 import TableHeader from "./TableHeader";
@@ -52,7 +54,7 @@ import {editableProp, useTextInputsProp, weekProp} from "../src/props";
 import {capitalizeFirstLetter} from "../src/func";
 
 export default {
-    components: { IntervalInput, TableColumn, TableHeader },
+    components: { AddButton, RemoveButton, IntervalInput, TableColumn, TableHeader },
 
     props: {
         ...weekProp,

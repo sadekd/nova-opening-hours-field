@@ -6,7 +6,7 @@
                     {{ __('Exceptions') }}
                 </table-header>
                 <table-header v-if="editable" class="text-right">
-                    <default-button @click.prevent="$emit('addException')"><span class="px-1">+</span></default-button>
+                    <add-button @click.prevent="$emit('addException')" />
                 </table-header>
             </tr>
         </thead>
@@ -39,9 +39,9 @@
                     <div v-else>{{ __('Closed') }}</div>
                 </table-column>
                 <table-column v-if="editable" class="text-right">
-                    <default-button @click.prevent="$emit('addInterval', 'exceptions', exception.date)"><span class="px-1">+</span></default-button>
+                    <add-button @click.prevent="$emit('addInterval', 'exceptions', exception.date)" />
                     &nbsp;
-                    <danger-button @click.prevent="$emit('removeException', exception.date)"><span class="px-1">-</span></danger-button>
+                    <remove-button @click.prevent="$emit('removeException', exception.date)"/>
                 </table-column>
             </tr>
         </tbody>
@@ -49,6 +49,8 @@
 </template>
 
 <script>
+import AddButton from './AddButton';
+import RemoveButton from './RemoveButton';
 import IntervalInput from "./IntervalInput";
 import DateInput from "./DateInput";
 import TableColumn from "./TableColumn";
@@ -56,7 +58,7 @@ import TableHeader from "./TableHeader";
 import {editableProp, exceptionsProp, useTextInputsProp} from "../src/props";
 
 export default {
-    components: { IntervalInput, DateInput, TableColumn, TableHeader },
+    components: { AddButton, RemoveButton, IntervalInput, DateInput, TableColumn, TableHeader },
 
     props: {
         ...exceptionsProp,
