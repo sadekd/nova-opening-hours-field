@@ -47,4 +47,8 @@ export default {
 input[type="text"] {
     width: 75px;
 }
+
+input[type="time"] {
+    max-width: fit-content;
+}
 </style>
