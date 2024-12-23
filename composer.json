@@ -13,7 +13,7 @@
         "spatie/opening-hours": "^2.0|^3.0"
     },
     "require-dev": {
-        "laravel/nova-devtool": "^1.1.2"
+        "laravel/nova-devtool": "^1.1.4"
     },
     "autoload": {
         "psr-4": {
